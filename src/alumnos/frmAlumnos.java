@@ -4,50 +4,86 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class frmAlumnos {
+
+public class frmAlumnos extends JFrame {
     private JTextField txtNombre;
-    private JTextField txtPaterno;
-    private JTextField txtMaterno;
+    private JTextField txtAPaterno;
+    private JTextField txtAMaterno;
     private JTextField txtCorreo;
     private JTextField txtTelefono;
-    private JCheckBox chkDiscapacidad;
-    private JButton btnAcpectar;
-    private JButton btnCancelar;
     private JComboBox cmbSexo;
-    private JTextField txtCurp;
+    private JCheckBox chkDiscapacidad;
+    private JButton aceptarButton;
+    private JButton cancelarButton;
+    private JTextField txtCURP;
+    private JPanel pnlPrincipal;
+    private BotonGuardarListener botonGuardarListener;
+
 
     public frmAlumnos() {
-        btnAcpectar.addActionListener(new ActionListener() {
+
+        setTitle("Alumnos");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setContentPane(pnlPrincipal);
+        pack();
+        poblarComboBox();
+        setLocationRelativeTo(null);
+        aceptarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                enviarDatos();
             }
         });
-        btnCancelar.addActionListener(new ActionListener() {
+        cancelarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Borrar();
-
             }
         });
+        aceptarButton.addActionListener(new ActionListener() {
+        });
+    }
+    public void setBotonGuardarListener(BotonGuardarListener listener) {
+        this.botonGuardarListener = listener;
+    }
+    private void enviarDatos() {
+        String nombre = txtNombre.getText();
+        String apaterno = txtAPaterno.getText();
+        String amaterno = txtAMaterno.getText();
+        String CURP = txtCURP.getText();
+        String correo = txtCorreo.getText();
+        String telefono = txtTelefono.getText();
+        String sexo = cmbSexo.getSelectedItem().toString();
+        Boolean discapacidad = chkDiscapacidad.isSelected();
+
+        alumno dato= new alumno(nombre,apaterno,amaterno,CURP,telefono,correo,discapacidad,sexo);
+
+        if(botonGuardarListener != null) {
+            botonGuardarListener.guardando(dato);
+        }
+        Borrar();
     }
     private void Borrar()
     {
         txtNombre.setText("");
-        txtPaterno.setText("");
-        txtMaterno.setText("");
-        txtCurp.setText("");
+        txtAPaterno.setText("");
+        txtAMaterno.setText("");
+        txtCURP.setText("");
         txtCorreo.setText("");
         txtTelefono.setText("");
         cmbSexo.setSelectedIndex(0);
         chkDiscapacidad.setSelected(false);
-
     }
     private void poblarComboBox()
     {
-        DefaultComboBoxModel <Genero> modelo = (DefaultComboBoxModel<Genero>) cmbSexo.getModel();
-        for(Genero genero: Genero.values()){
+        DefaultComboBoxModel <Genero>comboBoxModel =  (DefaultComboBoxModel<Genero>) cmbSexo.getModel();
+
+        for(Genero genero : Genero.values()){
             comboBoxModel.addElement(genero);
         }
     }
+
+
 }
+
+
