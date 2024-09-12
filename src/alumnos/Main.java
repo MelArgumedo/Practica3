@@ -62,15 +62,15 @@ public class Main {
         int añoActual= ahora.getYear();
         int mesActual= ahora.getMonthValue();
         int diaActual= ahora.getDayOfMonth();
-         if (añoCurp > (añoActual-2000))
+         if (añoCurp > (añoActual-2000))                                                             //verificar el año extraido
              añoCurp+=1900;
          else
              añoCurp+=2000;
 
-         int edad= añoActual-añoCurp;
+         int edad= añoActual-añoCurp;                                                       //restar año act con año de nac
 
          if(mesActual < curpMes )
-         {
+         {                                                                                  //se decrementa la edad, la persona aun no ha cumplido años
              edad--;
              return edad;
 
