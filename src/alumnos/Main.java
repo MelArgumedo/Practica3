@@ -24,16 +24,25 @@ public class Main {
                         System.out.println("Correo: "+persona.getCorreo());
                         System.out.println("Telefono: "+persona.getTelefono());
                         System.out.println("Discapacidad: "+persona.getDiscapacidad());
-                        System.out.println("EDAD "+calcularEdad(persona.getCURP()));//cambiar
+                        System.out.println("Edad:  "+calcularEdadDesdeCurp(persona.getCURP()));
+                        System.out.println();
 
-                        Path path= Path.of("C\\repos\\Luis.txt");
+                        Path path= Path.of("C:\\Users\\melan\\IdeaProjects\\Practica3\\Luis.txt");
                                 String contenido =persona.getNombre();
 
                                 try(FileWriter archivo = new FileWriter(path.toFile(), true))
                                 {
                                     PrintWriter pw= new PrintWriter(archivo);
                                     pw.println(contenido);
-                                    archivo.write(contenido);
+                                    pw.println(persona.getAPaterno());
+                                    pw.println(persona.getAMaterno());
+                                    pw.println(persona.getSexo());
+                                    pw.println(persona.getCURP());
+                                    pw.println(persona.getTelefono());
+                                    pw.println(persona.getDiscapacidad());
+                                    pw.println(calcularEdadDesdeCurp(persona.getCURP()));
+                                    pw.println();
+
                                 }
                                 catch (IOError e){e.getMessage();}catch (IOException e)
                                 {throw new IOError(e);}
@@ -44,7 +53,7 @@ public class Main {
         });
     }
 
-    public static int calcularEdad(String curp) {
+    public static int calcularEdadDesdeCurp(String curp) {
       int añoCurp = Integer.parseInt(curp.substring(4, 6));
       int curpMes= Integer.parseInt(curp.substring(6, 8));
       int curpDia= Integer.parseInt(curp.substring(8, 10));
