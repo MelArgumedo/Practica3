@@ -32,6 +32,7 @@ public class frmAlumnos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 enviarDatos();
+
             }
         });
         cancelarButton.addActionListener(new ActionListener() {
@@ -40,8 +41,7 @@ public class frmAlumnos extends JFrame {
                 Borrar();
             }
         });
-        aceptarButton.addActionListener(new ActionListener() {
-        });
+
     }
     public void setBotonGuardarListener(BotonGuardarListener listener) {
         this.botonGuardarListener = listener;

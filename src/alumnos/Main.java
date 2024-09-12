@@ -1,6 +1,11 @@
 package alumnos;//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import javax.annotation.processing.Filer;
 import javax.swing.*;
+import java.io.*;
+import java.nio.file.Path;
+import java.time.LocalDate;
+
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -19,10 +24,54 @@ public class Main {
                         System.out.println("Correo: "+persona.getCorreo());
                         System.out.println("Telefono: "+persona.getTelefono());
                         System.out.println("Discapacidad: "+persona.getDiscapacidad());
+                        System.out.println("EDAD "+calcularEdad(persona.getCURP()));//cambiar
+
+                        Path path= Path.of("C\\repos\\Luis.txt");
+                                String contenido =persona.getNombre();
+
+                                try(FileWriter archivo = new FileWriter(path.toFile(), true))
+                                {
+                                    PrintWriter pw= new PrintWriter(archivo);
+                                    pw.println(contenido);
+                                    archivo.write(contenido);
+                                }
+                                catch (IOError e){e.getMessage();}catch (IOException e)
+                                {throw new IOError(e);}
                     }
                 });
 
             }
         });
     }
+
+    public static int calcularEdad(String curp) {
+      int añoCurp = Integer.parseInt(curp.substring(4, 6));
+      int curpMes= Integer.parseInt(curp.substring(6, 8));
+      int curpDia= Integer.parseInt(curp.substring(8, 10));
+
+        LocalDate ahora= LocalDate.now();
+        int añoActual= ahora.getYear();
+        int mesActual= ahora.getMonthValue();
+        int diaActual= ahora.getDayOfMonth();
+         if (añoCurp > (añoActual-2000))
+             añoCurp+=1900;
+         else
+             añoCurp+=2000;
+
+         int edad= añoActual-añoCurp;
+
+         if(mesActual < curpMes )
+         {
+             edad--;
+             return edad;
+
+         }
+         if(mesActual == curpMes && diaActual < diaActual- curpDia)
+         {
+             edad--;
+             return edad;
+         }
+             return edad;
+    }
 }
+
