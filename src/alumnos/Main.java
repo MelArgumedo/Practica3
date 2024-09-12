@@ -67,15 +67,15 @@ public class Main {
          else
              añoCurp+=2000;
 
-         int edad= añoActual-añoCurp;                                                       //restar año act con año de nac
+         int edad= añoActual-añoCurp;                                                               //restar año act con año de nac
 
          if(mesActual < curpMes )
-         {                                                                                  //se decrementa la edad, la persona aun no ha cumplido años
+         {                                                                                          //se decrementa la edad, la persona aun no ha cumplido años
              edad--;
              return edad;
 
          }
-         if(mesActual == curpMes && diaActual < diaActual- curpDia)
+         if(mesActual == curpMes && diaActual < diaActual- curpDia)                                  //
          {
              edad--;
              return edad;
